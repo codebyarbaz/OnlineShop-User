@@ -75,19 +75,20 @@
         </div>
         <div id="showProducts" class="showPro" ng-controller="viewProductsByMenuController">
             <div class="allProductsByMenu">
+                <% if(products.length){ %>
                 <div id="sortBy">
                     <div class="list">
                         <ul>
                             <li class="sortList sortBy">Sort By</li>
-                            <li class="sortList sortListFirst">Relevance</li>
-                            <li class="sortList" ng-click="sortByPopularity()">Popularity</li>
-                            <li class="sortList" ng-click="sortByLowPrice()">Price-- Low to High</li>
-                            <li class="sortList" ng-click="sortByHighPrice()">Price-- High to Low</li>
-                            <li class="sortList" ng-click="sortByNew()">Newest First</li>
-                            <li class="sortList" ng-click="sortByDiscount()">Discount</li>
+                            <li class="sortList <% if(activeSort == 'Popularity'){ %> sortListFirst <% } %>" ng-click="sortByPopularity()">Popularity</li>
+                            <li class="sortList <% if(activeSort == 'LowPrice'){ %> sortListFirst <% } %>" ng-click="sortByLowPrice()">Price-- Low to High</li>
+                            <li class="sortList <% if(activeSort == 'HighPrice'){ %> sortListFirst <% } %>" ng-click="sortByHighPrice()">Price-- High to Low</li>
+                            <li class="sortList <% if(activeSort == 'New'){ %> sortListFirst <% } %>" ng-click="sortByNew()">Newest First</li>
+                            <li class="sortList <% if(activeSort == 'Discount'){ %> sortListFirst <% } %>" ng-click="sortByDiscount()">Discount</li>
                         </ul>
                     </div>
                 </div>
+                <% } %>
                 <% if(products.length){ %>
                 <% products.forEach(product=>{ %>
                 <a class="productLink" ng-href="/viewProduct/<%= product.menu %>/<%= product.submenu %>/<%= product.title %>/<%= product._id %>"
@@ -153,7 +154,13 @@
                         <span class="pagination previous" ng-click="PreviousPage(<%= currentPage %>)">Previous</span>
                 </div>
                 <% } else{ %>
-                <p>No Products Found.</p>
+                <div id="noProduct">
+                    <div class="noResultWrapper">
+                        <img class="noResultErrorImage" src="/assets/images/no_result.png" alt="No Result Found">
+                        <p class="noResultMsg">Sorry, no result found!</p>
+                        <p class="noResultMsgInfo">Please check the spelling or try searching for something else.</p>
+                    </div>
+                </div>
                 <% } %>
             </div>
         </div>

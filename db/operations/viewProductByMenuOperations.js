@@ -53,14 +53,16 @@ const viewProductByMenuOperations = {
               products: docs,
               session: "true",
               currentPage,
-              totalPages: Math.round(totalPages)
+              totalPages: Math.round(totalPages),
+              activeSort: detailsObject.Query.sort
             });
           } else {
             return res.status(200).render("viewProductsByMenu.ejs", {
               products: docs,
               session: "false",
               currentPage,
-              totalPages: Math.round(totalPages)
+              totalPages: Math.round(totalPages),
+              activeSort: detailsObject.Query.sort
             });
           }
         }

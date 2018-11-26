@@ -154,7 +154,7 @@ a {
 }
 
 #nav .navmenulink:hover {
-  color: #5047f4;
+  color: #2874f0;
 }
 
 #nav .navmenulink:after {
@@ -207,7 +207,7 @@ a {
 
 #nav .navsection .submenuul .submenu:hover {
   cursor: pointer;
-  color: #5047f4;
+  color: #2874f0;
 }
 
 #nav .navsection {
@@ -372,7 +372,7 @@ a {
 
 #viewProduct .sideImage:hover {
   cursor: pointer;
-  border: 2px solid #5047f4;
+  border: 2px solid #2874f0;
 }
 
 #viewProduct .SideImages {
@@ -440,7 +440,7 @@ a {
 }
 
 #viewProduct .productMeta .productMenu:hover {
-  color: #5047f4;
+  color: #2874f0;
 }
 
 #viewProduct .productMeta .productMenu,
@@ -516,7 +516,7 @@ a {
 }
 
 .total .totalRatingReview:hover {
-  color: #5047f4;
+  color: #2874f0;
 }
 
 .productTrust {
@@ -562,7 +562,7 @@ a {
 
 #viewProduct .inputPincode:focus {
   outline: none;
-  border-color: transparent transparent #5047f4 transparent;
+  border-color: transparent transparent #2874f0 transparent;
 }
 
 #viewProduct .checkPincode {
@@ -576,7 +576,7 @@ a {
 }
 
 #viewProduct .checkPincode:hover {
-  background-color: #5047f4;
+  background-color: #2874f0;
   color: white;
 }
 
@@ -757,7 +757,7 @@ a {
 
 #Reviews .ReadAllReviews:hover {
   cursor: pointer;
-  color: #5047f4;
+  color: #2874f0;
   text-decoration-line: underline;
   width: 128px;
 }
@@ -818,7 +818,7 @@ a {
 }
 
 .totalRatingReview:hover .totalRateReview {
-  color: #5047f4;
+  color: #2874f0;
 }
 
 #AllReviews .averageRate {
@@ -863,7 +863,7 @@ a {
 }
 
 .total .totalRatingReview:hover {
-  color: #5047f4;
+  color: #2874f0;
 }
 
 #AllReviews .heading {
@@ -1160,7 +1160,7 @@ a {
 }
 
 #container .myAccountListLink:hover {
-  color: #5047f4;
+  color: #2874f0;
 }
 
 #container .myAccountListLink {
@@ -1496,7 +1496,7 @@ a {
 }
 
 #cartProducts .removeProduct:hover {
-  color: #5047f4;
+  color: #2874f0;
   cursor: pointer;
 }
 

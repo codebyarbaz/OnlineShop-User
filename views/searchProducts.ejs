@@ -136,12 +136,11 @@
                     <div class="list">
                         <ul>
                             <li class="sortList sortBy">Sort By</li>
-                            <li class="sortList sortListFirst">Relevance</li>
-                            <li class="sortList" ng-click="sortByPopularity()">Popularity</li>
-                            <li class="sortList" ng-click="sortByLowPrice()">Price-- Low to High</li>
-                            <li class="sortList" ng-click="sortByHighPrice()">Price-- High to Low</li>
-                            <li class="sortList" ng-click="sortByNew()">Newest First</li>
-                            <li class="sortList" ng-click="sortByDiscount()">Discount</li>
+                            <li class="sortList <% if(activeSort == 'Popularity'){ %> sortListFirst <% } %>" ng-click="sortByPopularity()">Popularity</li>
+                            <li class="sortList <% if(activeSort == 'LowPrice'){ %> sortListFirst <% } %>" ng-click="sortByLowPrice()">Price-- Low to High</li>
+                            <li class="sortList <% if(activeSort == 'HighPrice'){ %> sortListFirst <% } %>" ng-click="sortByHighPrice()">Price-- High to Low</li>
+                            <li class="sortList <% if(activeSort == 'New'){ %> sortListFirst <% } %>" ng-click="sortByNew()">Newest First</li>
+                            <li class="sortList <% if(activeSort == 'Discount'){ %> sortListFirst <% } %>" ng-click="sortByDiscount()">Discount</li>
                         </ul>
                     </div>
                 </div>
