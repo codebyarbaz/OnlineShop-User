@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>OnlineShop - User Area</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="css/custom.css">
+    <script src="bower_components/angular/angular.min.js"></script>
+</head>
+
+
+<body ng-app="myApp" ng-controller="homeController">
+
+    <div id="container">
+        <div class="topsection">
+            <div class="topleft">
+                <span class="topbg">
+                    <div class="sitelogo">
+                        <p class="logo">OnlineShop</p>
+                        <div class="search">
+                            <input class="searchinput" type="text" placeholder="Search for products, brands and more"
+                                ng-model="searchQuery">
+                            <button class="searchicon cursor" ng-click="searchProduct(searchQuery)">Search</button>
+                        </div>
+                    </div>
+                </span>
+            </div>
+            <div class="topright">
+                <ul class="ulmenu">
+                    <li class="toprightmenus"> <a ng-href="/account/login">Login & Signup</a> </li>
+                    <li class="toprightmenus cart"><a ng-href="/viewCart">My Cart</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="nav">
+            <ul class="navul">
+                <li class="navmenu navmenulink" ng-repeat="menu in menusData.data" ng-mouseover="showSubMenus(menu)">{{menu.menu}}
+                </li>
+            </ul>
+            <div class="navsection">
+                <div class="submenusection">
+                    <div class="submenus">
+                        <ul class="submenuul" ng-mouseleave="hideSubMenus()">
+                            <li ng-repeat="submenu in submenus" ng-click="searchSubMenu(submenu)" ng-mouseover="showSubSubMenus(submenu)">
+                                <a class="submenu" ng-href="/show/{{MainMenu}}/{{submenu.name}}">{{submenu.name}}</a>
+                            </li>
+                            </a>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="carousel">
+            <div class="caroImage">
+            </div>
+        </div>
+        <div id="products" ng-controller="productController">
+            <div class="section">
+                <div class="metaProDetails">
+                    <p class="subTitle">Mobiles</p>
+                    <a href="/show/{{MobileProducts[0].menu}}/{{MobileProducts[0].submenu}}">
+                        <span class="viewAll">VIEW ALL</span>
+                    </a>
+                </div>
+                <div class="Products" ng-repeat="product in MobileProducts">
+                    <a class="productLink" ng-href="/viewProduct/{{product.menu}}/{{product.submenu}}/{{product.title}}/{{product._id}}"
+                    target="_blank">
+                        <div class="product">
+                            <img class="productImage" ng-src="{{product.images[0].url}}" alt="product.images[0].name">
+                            <p class="productTitle">{{product.title}}</p>
+                            <p class="productPrice">{{product.price | currency: '&#8377'}}</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="section">
+                <div class="metaProDetails">
+                    <p class="subTitle">Men's Footwear</p>
+                    <a href="/show/{{ShoeProducts[0].menu}}/{{ShoeProducts[0].submenu}}">
+                        <span class="viewAll">VIEW ALL</span>
+                    </a>
+                </div>
+                <div class="Products" ng-repeat="product in ShoeProducts">
+                    <a class="productLink" ng-href="/viewProduct/{{product.menu}}/{{product.submenu}}/{{product.title}}/{{product._id}}"
+                    target="_blank">
+                        <div class="product">
+                            <img class="productImage" ng-src="{{product.images[0].url}}" alt="product.images[0].name">
+                            <p class="productTitle">{{product.title}}</p>
+                            <p class="productPrice">{{product.price | currency: '&#8377'}}</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="section">
+                <div class="metaProDetails">
+                    <p class="subTitle">Women's Wear</p>
+                    <a href="/show/{{WomensWear[0].menu}}/{{WomensWear[0].submenu}}">
+                        <span class="viewAll">VIEW ALL</span>
+                    </a>
+                </div>
+                <div class="Products" ng-repeat="product in WomensWear">
+                    <a class="productLink" ng-href="/viewProduct/{{product.menu}}/{{product.submenu}}/{{product.title}}/{{product._id}}"
+                    target="_blank">
+                        <div class="product">
+                            <img class="productImage" ng-src="{{product.images[0].url}}" alt="product.images[0].name">
+                            <p class="productTitle">{{product.title}}</p>
+                            <p class="productPrice">{{product.price | currency: '&#8377'}}</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="section">
+                <div class="metaProDetails">
+                    <p class="subTitle">Television</p>
+                    <a href="/show/{{Television[0].menu}}/{{Television[0].submenu}}">
+                        <span class="viewAll">VIEW ALL</span>
+                    </a>
+                </div>
+                <div class="Products" ng-repeat="product in Television">
+                    <a class="productLink" ng-href="/viewProduct/{{product.menu}}/{{product.submenu}}/{{product.title}}/{{product._id}}"
+                    target="_blank">
+                        <div class="product">
+                            <img class="productImage" ng-src="{{product.images[0].url}}" alt="product.images[0].name">
+                            <p class="productTitle">{{product.title}}</p>
+                            <p class="productPrice">{{product.price | currency: '&#8377'}}</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="section">
+                <div class="metaProDetails">
+                    <p class="subTitle">Toys</p>
+                    <a href="/show/{{Toys[0].menu}}/{{Toys[0].submenu}}">
+                        <span class="viewAll">VIEW ALL</span>
+                    </a>
+                </div>
+                <div class="Products" ng-repeat="product in Toys">
+                    <a class="productLink" ng-href="/viewProduct/{{product.menu}}/{{product.submenu}}/{{product.title}}/{{product._id}}"
+                    target="_blank">
+                        <div class="product">
+                            <img class="productImage" ng-src="{{product.images[0].url}}" alt="product.images[0].name">
+                            <p class="productTitle">{{product.title}}</p>
+                            <p class="productPrice">{{product.price | currency: '&#8377'}}</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="section">
+                <div class="metaProDetails">
+                    <p class="subTitle">Furniture</p>
+                    <a href="/show/{{Furnitures[0].menu}}/{{Furnitures[0].submenu}}">
+                        <span class="viewAll">VIEW ALL</span>
+                    </a>
+                </div>
+                <div class="Products" ng-repeat="product in Furnitures">
+                    <a class="productLink" ng-href="/viewProduct/{{product.menu}}/{{product.submenu}}/{{product.title}}/{{product._id}}"
+                    target="_blank">
+                        <div class="product">
+                            <img class="productImage" ng-src="{{product.images[0].url}}" alt="product.images[0].name">
+                            <p class="productTitle">{{product.title}}</p>
+                            <p class="productPrice">{{product.price | currency: '&#8377'}}</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <script src="js/app.js"></script>
+    <script src="js/routes.js"></script>
+    <script src="js/controllers/homeController.js"></script>
+    <script src="js/models/homeFactory.js"></script>
+    <script src="js/controllers/productController.js"></script>
+    <script src="js/models/productFactory.js"></script>
+    <script src="js/controllers/viewProductController.js"></script>
+    <script src="js/models/viewProductFactory.js"></script>
+</body>
+
+</html>
+</body>

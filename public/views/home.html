@@ -1,0 +1,39 @@
+<div id="container">
+    <div class="topsection">
+        <div class="topleft">
+            <span class="topbg">
+                <div class="sitelogo">
+                    <p class="logo">OnlineShop</p>
+                    <div class="search">
+                        <input class="searchinput" type="text" placeholder="Search for products, brands and more">
+                        <button class="searchicon cursor">Search</button>
+                    </div>
+                </div>
+            </span>
+        </div>
+        <div class="topright">
+            <ul class="ulmenu">
+                <li class="toprightmenus"> <a ng-href="/account/login">Login & Signup</a> </li>
+                <li class="toprightmenus cart"><a ng-href="/cart">My Cart</a></li>
+            </ul>
+        </div>
+    </div>
+    <div id="nav">
+        <ul class="navul">
+            <li class="navmenu" ng-repeat="menu in menusData.data" ng-mouseover="showSubMenus(menu)">{{menu.menu}}</li>
+        </ul>
+        <div class="navsection">
+            <div class="submenusection">
+                <div class="submenus">
+                    <ul class="submenuul" ng-mouseleave="hideSubMenus()">
+                        <li class=" submenu" ng-repeat="submenu in submenus" ng-click="searchSubMenu(submenu)"
+                            ng-mouseover="showSubSubMenus(submenu)">{{submenu.name}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="carousel">
+
+    </div>
+</div>

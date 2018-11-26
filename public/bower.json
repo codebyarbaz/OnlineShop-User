@@ -1,0 +1,20 @@
+{
+  "name": "public",
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.7.3",
+    "angular-route": "^1.7.3",
+    "angular-ui-carousel": "^0.1.10",
+    "angular-jk-carousel": "^0.5.0"
+  }
+}

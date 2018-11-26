@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>OnlineShop - User Area</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../css/custom.css">
+    <script src="../../../../bower_components/angular/angular.js"></script>
+</head>
+
+<body ng-app="myApp" ng-controller="homeController">
+
+    <div id="container" ng-controller="viewCartController">
+        <div class="topsection">
+            <div class="topleft">
+                <span class="topbg">
+                    <div class="sitelogo">
+                        <p class="logo">OnlineShop</p>
+                        <div class="search">
+                            <input class="searchinput" type="text" placeholder="Search for products, brands and more"
+                                ng-model="searchQuery">
+                            <button class="searchicon cursor" ng-click="searchProduct(searchQuery)">Search</button>
+                        </div>
+                    </div>
+                </span>
+            </div>
+            <div class="topright">
+                <% if(session == "true"){ %>
+                <ul class="ulmenu">
+                    <li class="toprightmenus myAccount">My Account
+                        <div class="myAccountMenus">
+                            <ul>
+                                <li class="myAccountList">
+                                    <a class="myAccountListLink" ng-href="/account/profile">Profile</a>
+                                </li>
+                                <li class="myAccountList">
+                                    <a class="myAccountListLink" ng-href="/account/myorders">Orders</a>
+                                </li>
+                                <li class="myAccountList">
+                                    <a class="myAccountListLink" ng-href="/account/signout">Sign Out</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="toprightmenus cart"><a ng-href="/viewCart">My Cart</a></li>
+                </ul>
+                <% } else{ %>
+                <ul class="ulmenu">
+                    <li class="toprightmenus"> <a ng-href="/account/login">Login & Signup</a> </li>
+                </ul>
+                <% } %>
+            </div>
+        </div>
+        <% if(products && products.length){ %>
+        <div id="cartProducts">
+            <div class="fullCart">
+                <p class="subTitle">MY CART (
+                    <%= products.length %> )
+                </p>
+                <% products.forEach(cartProduct=>{ %>
+                <% const ProNo = 0;%>
+                <div class="completeOrders">
+                    <div class="orderDetails">
+                        <div class="cartImage imageWrapper">
+                            <a class="cartProductLink" ng-href="/viewProduct/<%= cartProduct.menu %>/<%= cartProduct.submenu %>/<%= cartProduct.title %>/<%= cartProduct.productID %>">
+                                <img class="productImage" src="<%= cartProduct.image %>" alt="ProductImage">
+                            </a>
+                            <span class="quantity DecrementQuantity" ng-click="DecreaseQuantity('<%= cartProduct.productID %>')">–</span>
+                            <input class="productQuantity" type="number" value="<%= cartProduct.quantity %>">
+                            <span class="quantity IncrementQuantity" ng-click="IncreaseQuantity('<%= cartProduct.productID %>')">+</span>
+                        </div>
+                        <div class="cartDetail detailsWrapper">
+                            <a class="cartProductLink" ng-href="/viewProduct/<%= cartProduct.menu %>/<%= cartProduct.submenu %>/<%= cartProduct.title %>/<%= cartProduct.productID %>">
+                                <p class="productTitle">
+                                    <%= cartProduct.title %>
+                                </p>
+                            </a>
+                            <p class="productPrice">
+                                &#8377
+                                <%= Number(cartProduct.price) * Number(cartProduct.quantity) %>
+                            </p>
+                            <strike class="productDiscount">
+                                &#8377
+                                <% const totalPrice = Number(cartProduct.price) + Number(cartProduct.discount); %>
+                                <%= Number(totalPrice) * Number(cartProduct.quantity) %>
+                            </strike>
+                            <% if(cartProduct.discount > 0){ %>
+                            <span class="ProductDiscount">
+                                &#8377
+                                <%= Number(cartProduct.discount) * Number(cartProduct.quantity) %> Off
+                            </span>
+                            <% } %>
+                            <p class="removeProduct" ng-click="removeProduct('<%= cartProduct.productID %>')">REMOVE</p>
+                        </div>
+                    </div>
+                </div>
+                <% }) %>
+            </div>
+            <div class="OrderPrice">
+                <p class="subTitle">Order Details</p>
+                <div class="totalItemsPriceWrapper">
+                    <p class="totalItems">
+                        Price (
+                        <%= products.length %> items )
+                    </p>
+                    <p class="totalItemsPrice">
+                        <% let totalPrice = 0; %>
+                        <% products.forEach(product=>{ %>
+                        <% totalPrice += Number(product.price) * Number(product.quantity); %>
+                        <% }) %>
+                        &#8377
+                        <%= totalPrice %>
+                    </p>
+                </div>
+                <div class="DeliveryChargesWrapper">
+                    <p class="DeliveryTitle">Delivery Charges</p>
+                    <% if(totalPrice > 700){ %>
+                    <p class="DeliveryCharge">FREE</p>
+                    <% } else{ %>
+                    <p class="FreeDelivery">
+                        &#8377
+                        700
+                    </p>
+                    <% } %>
+
+                </div>
+                <div class="finalDetails">
+                    <p class="finalTitle">Total Amount Payable</p>
+                    <% if(totalPrice > 700){ %>
+                    <p class="finalPrice">
+                        &#8377
+                        <%= totalPrice %>
+                    </p>
+                    <% } else{ %>
+                    <% const finalPrice = totalPrice + 700; %>
+                    <p class="finalPrice">
+                        &#8377
+                        <%= finalPrice %>
+                    </p>
+                    <% } %>
+                </div>
+                <div class="totalSavingsWrapper">
+                    <% let totalSavingsPrice = 0; %>
+                    <% products.forEach(product=>{ %>
+                    <% totalSavingsPrice += Number(product.discount); %>
+                    <% }) %>
+                    <% if(totalSavingsPrice > 0){ %>
+                    <p class="totalSaving">
+                        Your Total Savings on this order
+                        &#8377
+                        <%= totalSavingsPrice %>
+                    </p>
+                    <% } %>
+                </div>
+                <div class="confirmOrder">
+                    <p class="confirm continueShoping" ng-click="continueShoping()">CONTINUE SHOPING</p>
+                    <p class="confirm placeOrder" ng-click="placeOrder()">PLACE ORDER</p>
+                </div>
+                <div class="orderInfo" ng-show="fillAddress">
+                    <p class="orderInfoMsg">Please fill the address details
+                        <a class="userProfileLink" ng-href="/account/profile">click here</a>
+                    </p>
+                </div>
+                <div class="orderSuccessDetails">
+                    <p class="orderSuccessMsg">{{orderSuccessMsg}}</p>
+                </div>
+            </div>
+        </div>
+        <% } else{ %>
+        <div id="emptyCart">
+            <p class="subTitle">MY CART (0)</p>
+            <img class="emptyCartImage" src="../../../../assets/images/emptyCartIcon.png" alt="emptyCartIcon">
+            <p class="cartInfo">Your Shopping Cart is empty</p>
+        </div>
+        <% } %>
+        <hr class="hr">
+    </div>
+
+
+    <script src="../../../../js/app.js"></script>
+    <script src="../../../../js/routes.js"></script>
+    <script src="../../../../js/controllers/homeController.js"></script>
+    <script src="../../../../js/models/homeFactory.js"></script>
+    <script src="../../../../js/controllers/productController.js"></script>
+    <script src="../../../../js/models/productFactory.js"></script>
+    <script src="../../../../js/controllers/viewProductController.js"></script>
+    <script src="../../../../js/models/viewProductFactory.js"></script>
+    <script src="../../../../js/controllers/viewProductController.js"></script>
+    <script src="../../../../js/models/viewProductFactory.js"></script>
+    <script src="../../../../js/controllers/viewCartController.js"></script>
+    <script src="../../../../js/models/viewCartFactory.js"></script>
+
+
+</body>
+
+</html>

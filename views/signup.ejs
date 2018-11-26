@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>OnlineShop - User Area</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../css/custom.css">
+    <script src="../../../../bower_components/angular/angular.js"></script>
+</head>
+
+<body ng-app="myApp" ng-controller="homeController">
+
+    <div id="container">
+        <div class="topsection">
+            <div class="topleft">
+                <span class="topbg">
+                    <div class="sitelogo">
+                        <p class="logo">OnlineShop</p>
+                        <div class="search">
+                            <input class="searchinput" type="text" placeholder="Search for products, brands and more"
+                                ng-model="searchQuery">
+                            <button class="searchicon cursor" ng-click="searchProduct(searchQuery)">Search</button>
+                        </div>
+                    </div>
+                </span>
+            </div>
+            <div class="topright">
+                <ul class="ulmenu">
+                    <!-- <li class="toprightmenus"> <a ng-href="/account/login">Login & Signup</a> </li> -->
+                    <li class="toprightmenus cart"><a ng-href="/viewCart">My Cart</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="nav">
+            <ul class="navul">
+                <li class="navmenu navmenulink" ng-repeat="menu in menusData.data" ng-mouseover="showSubMenus(menu)">{{menu.menu}}
+                    <!-- <a class="navmenulink" ng-href="/mainmenu/{{menu.menu}}">{{menu.menu}}</a> -->
+                </li>
+            </ul>
+            <div class="navsection">
+                <div class="submenusection">
+                    <div class="submenus">
+                        <ul class="submenuul" ng-mouseleave="hideSubMenus()">
+                            <li ng-repeat="submenu in submenus" ng-click="searchSubMenu(submenu)" ng-mouseover="showSubSubMenus(submenu)">
+                                <a class="submenu" ng-href="/show/{{MainMenu}}/{{submenu.name}}">{{submenu.name}}</a>
+                            </li>
+                            </a>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="loginSignup" ng-controller="SignupController">
+            <div id="register">
+                <p class="create">Create Account</p>
+                <!-- <form action="/account/signup" method="POST"> -->
+                <table>
+                    <tr>
+                        <td>
+                            <label class="label" for="name">Your name</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input class="input" type="text" ng-model="userDetails.name">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="label" for="mob">Mobile Number</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input class="input" type="text" placeholder="+91" ng-model="userDetails.mobile">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="label" for="email">Email address</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input class="input" type="email" ng-model="userDetails.email">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="label" for="password">Password</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input class="input last_input" type="password" placeholder="At least 6 characters"
+                                ng-model="userDetails.password">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="passinfo">Passwords must be at least 6 characters.</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="info">{{info}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button class="button" ng-click="createAccount()">Register</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Already have an account! <a class="registerNow" ng-href="/account/login">Login
+                                    Here</a>
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+                <!-- </form> -->
+            </div>
+        </div>
+    </div>
+
+
+    <script src="../../../../js/app.js"></script>
+    <script src="../../../../js/routes.js"></script>
+    <script src="../../../../js/controllers/homeController.js"></script>
+    <script src="../../../../js/models/homeFactory.js"></script>
+    <script src="../../../../js/controllers/productController.js"></script>
+    <script src="../../../../js/models/productFactory.js"></script>
+    <script src="../../../../js/controllers/viewProductController.js"></script>
+    <script src="../../../../js/models/viewProductFactory.js"></script>
+    <script src="../../../../js/controllers/viewProductController.js"></script>
+    <script src="../../../../js/models/viewProductFactory.js"></script>
+    <script src="../../../../js/controllers/SignupController.js"></script>
+    <script src="../../../../js/models/SignupFactory.js"></script>
+
+
+</body>
+
+</html>

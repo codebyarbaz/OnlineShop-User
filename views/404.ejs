@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>OnlineShop - User Area</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/custom.css" />
+    <script src="../../../../bower_components/angular/angular.js"></script>
+  </head>
+
+  <body ng-app="myApp" ng-controller="homeController">
+    <div id="container">
+      <div class="topsection">
+        <div class="topleft">
+          <span class="topbg centerLogo"> <p class="logo">OnlineShop</p> </span>
+        </div>
+      </div>
+      <div id="NotFound">
+        <div class="notFoundWrapper">
+          <img
+            class="notFoundImage"
+            src="/assets/images/404.png"
+            alt="404 Not Found"
+          />
+        </div>
+        <p class="notFoundMsg">
+          Unfortunately the page you are looking for has been moved or deleted.
+        </p>
+        <a href="/"> <span class="gotoHome">GO TO HOMEPAGE</span> </a>
+      </div>
+    </div>
+
+    <script src="/js/app.js"></script>
+    <script src="/js/routes.js"></script>
+    <script src="/js/controllers/homeController.js"></script>
+  </body>
+</html>

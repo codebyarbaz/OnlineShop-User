@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>OnlineShop - User Area</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../css/custom.css">
+    <script src="../../../../bower_components/angular/angular.js"></script>
+</head>
+
+<body ng-app="myApp" ng-controller="homeController">
+
+    <div id="container">
+        <div class="topsection">
+            <div class="topleft">
+                <span class="topbg">
+                    <div class="sitelogo">
+                        <p class="logo">OnlineShop</p>
+                        <div class="search">
+                            <input class="searchinput" type="text" placeholder="Search for products, brands and more"
+                                ng-model="searchQuery">
+                            <button class="searchicon cursor" ng-click="searchProduct(searchQuery)">Search</button>
+                        </div>
+                    </div>
+                </span>
+            </div>
+            <div class="topright">
+                <ul class="ulmenu">
+                    <li class="toprightmenus myAccount">My Account
+                        <div class="myAccountMenus">
+                            <ul>
+                                <li class="myAccountList">
+                                    <a class="myAccountListLink" ng-href="/account/profile">Profile</a>
+                                </li>
+                                <li class="myAccountList">
+                                    <a class="myAccountListLink" ng-href="/account/myorders">Orders</a>
+                                </li>
+                                <li class="myAccountList">
+                                    <a class="myAccountListLink" ng-href="/account/signout">Sign Out</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="toprightmenus cart"><a ng-href="/viewCart">My Cart</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="nav">
+            <ul class="navul">
+                <li class="navmenu navmenulink" ng-repeat="menu in menusData.data" ng-mouseover="showSubMenus(menu)">{{menu.menu}}
+                </li>
+            </ul>
+            <div class="navsection">
+                <div class="submenusection">
+                    <div class="submenus">
+                        <ul class="submenuul" ng-mouseleave="hideSubMenus()">
+                            <li ng-repeat="submenu in submenus" ng-click="searchSubMenu(submenu)" ng-mouseover="showSubSubMenus(submenu)">
+                                <a class="submenu" ng-href="/show/{{MainMenu}}/{{submenu.name}}">{{submenu.name}}</a>
+                            </li>
+                            </a>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="myAccount" ng-controller="myAccountController">
+            <div class="userDetails">
+                <img class="userAavatar" src="../../../../assets/images/userAvatar.png" alt="userAavatar">
+                <p class="userName">
+                    <%= user.name %>
+                </p>
+                <% if(user.orders.length){ %>
+                <p class="userOrders alert">
+                    <%= user.orders.length %>
+                    Pending Orders
+                </p>
+                <% } %>
+                <p class="userOrders">
+                    <%= user.purchasedOrders.length %>
+                    Complete Orders
+                </p>
+            </div>
+            <div class="userDetails">
+                <div class="accountDetails">
+                    <table>
+                        <tr>
+                            <td>
+                                <p class="title">Name:</p>
+                            </td>
+                            <td>
+                                <p class="username">
+                                    <%= user.name %>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p class="title">Mobile:</p>
+                            </td>
+                            <td>
+                                <p class="userMobile" ng-show="userMobile">
+                                    <%= user.mobile %>
+                                    <img ng-click="EditMobile()" class="EditAddress" src="../../../../assets/images/editIcon.png"
+                                        alt="EditMobile">
+                                </p>
+                                <div class="updateMobile" ng-show="updateMobile">
+                                    <input class="inputMobile" type="number" ng-model="newMobile" placeholder="Enter new mobile">
+                                    <button class="button" ng-click="UpdateMobile('<%= user._id %>',newMobile)">Update</button>
+                                    <button class="button" ng-click="cancelMobileUpdation()">Cancel</button>
+                                </div>
+                                <p class="title info">{{mobileInfo}}</p>
+                                <p class="title alert">{{mobileAlert}}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p class="title">Address:</p>
+                            </td>
+                            <td>
+                                <% if(user.address == ""){ %>
+                                <p class="title titleAddress">Add new address</p>
+                                <textarea ng-model="address" cols="30" rows="8" autofocus></textarea>
+                                <br>
+                                <button class="button" ng-click="addNewAddress('<%= user._id %>', address)">Add</button>
+                                <p class="title alert">{{titleAlert}}</p>
+                                <p class="title info">{{titleInfo}}</p>
+                                <% } else{ %>
+                                <p class="userAddress" ng-show="userAddress">
+                                    <%= user.address %>
+                                    <img ng-click="EditAddress('<%= user._id %>')" class="EditAddress" src="../../../../assets/images/editIcon.png"
+                                        alt="EditAddress">
+                                </p>
+                                <div class="UpdateAddress" ng-show="UpdateAddress">
+                                    <p class="title titleAddress">Update new address</p>
+                                    <textarea ng-model="address" cols="30" rows="8" autofocus></textarea>
+                                    <br>
+                                    <button class="button" ng-click="addNewAddress('<%= user._id %>', address)">Add</button>
+                                    <button class="button" ng-click="cancelUpdation()">Cancel</button>
+                                    <p class="title alert">{{titleAlert}}</p>
+                                    <p class="title info">{{titleInfo}}</p>
+                                </div>
+                                <% } %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p class="title">Update Password:</p>
+                            </td>
+                            <td>
+                                <input class="inputPassword" ng-model="oldPassword" type="password" placeholder="Old Password">
+                                <input class="inputPassword" ng-model="newPassword" type="password" placeholder="New Password">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                            </td>
+                            <td>
+                                <button class="button" ng-click="UpdatePassword('<%= user._id %>',oldPassword,newPassword)">Update
+                                    Password</button>
+                                <p class="title info">{{passwordInfo}}</p>
+                                <p class="title alert">{{passwordAlert}}</p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="../../../../js/app.js"></script>
+    <script src="../../../../js/routes.js"></script>
+    <script src="../../../../js/controllers/homeController.js"></script>
+    <script src="../../../../js/models/homeFactory.js"></script>
+    <script src="../../../../js/controllers/myAccountController.js"></script>
+    <script src="../../../../js/models/myAccountFactory.js"></script>
+
+
+</body>
+
+</html>

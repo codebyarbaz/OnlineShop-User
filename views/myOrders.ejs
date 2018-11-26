@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>OnlineShop - User Area</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../css/custom.css">
+    <script src="../../../../bower_components/angular/angular.min.js"></script>
+</head>
+
+
+<body ng-app="myApp" ng-controller="homeController">
+
+    <div id="container">
+        <div class="topsection">
+            <div class="topleft">
+                <span class="topbg">
+                    <div class="sitelogo">
+                        <p class="logo">OnlineShop</p>
+                        <div class="search">
+                            <input class="searchinput" type="text" placeholder="Search for products, brands and more"
+                                ng-model="searchQuery">
+                            <button class="searchicon cursor" ng-click="searchProduct(searchQuery)">Search</button>
+                        </div>
+                    </div>
+                </span>
+            </div>
+            <div class="topright">
+                <ul class="ulmenu">
+                    <li class="toprightmenus myAccount">My Account
+                        <div class="myAccountMenus">
+                            <ul>
+                                <li class="myAccountList">
+                                    <a class="myAccountListLink" ng-href="/account/profile">Profile</a>
+                                </li>
+                                <li class="myAccountList">
+                                    <a class="myAccountListLink" ng-href="/account/myorders">Orders</a>
+                                </li>
+                                <li class="myAccountList">
+                                    <a class="myAccountListLink" ng-href="/account/signout">Sign Out</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="toprightmenus cart"><a ng-href="/viewCart">My Cart</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="nav">
+            <ul class="navul">
+                <li class="navmenu navmenulink" ng-repeat="menu in menusData.data" ng-mouseover="showSubMenus(menu)">{{menu.menu}}
+                    <!-- <a class="navmenulink" ng-href="/mainmenu/{{menu.menu}}">{{menu.menu}}</a> -->
+                </li>
+            </ul>
+            <div class="navsection">
+                <div class="submenusection">
+                    <div class="submenus">
+                        <ul class="submenuul" ng-mouseleave="hideSubMenus()">
+                            <li ng-repeat="submenu in submenus" ng-click="searchSubMenu(submenu)" ng-mouseover="showSubSubMenus(submenu)">
+                                <a class="submenu" ng-href="/show/{{MainMenu}}/{{submenu.name}}">{{submenu.name}}</a>
+                            </li>
+                            </a>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="myOrders">
+            <% if(orders.length){ %>
+            <% orders.reverse(); %>
+            <div class="pendingOrders">
+                <p class="subTitle">Pending Orders</p>
+                <% orders.forEach(order=>{ %>
+                <!-- <a ng-href="/viewProduct/<%= order.menu %>/<%= order.submenu %>/<%= order.title %>/<%= order.productID %>">TESTS</a> -->
+                <div class="orderDetails">
+                    <div class="imageWrapper">
+                        <img class="productImage" src="<%= order.image %>" alt="ActiveOrderImage">
+                    </div>
+                    <div class="detailsWrapper">
+                        <p class="productTitle">
+                            <%= order.title %>
+                        </p>
+                        <p class="productPrice">
+                            &#8377
+                            <%= Number(order.price) * order.quantity %>
+                        </p>
+                        <p class="orderDate">
+                            Order Date:
+                            <%= order.orderDate %>
+                        </p>
+                        <p class="orderQuantity">
+                            Order Quantity:
+                            <%= order.quantity %>
+                        </p>
+                        <% if(order.status == "Pending"){ %>
+                        <p class="orderStatus alert">
+                            Status:
+                            <%= order.status %>
+                        </p>
+                        <% } %>
+                    </div>
+                </div>
+                <% }) %>
+            </div>
+            <% } %>
+            <div class="completeOrders">
+                <p class="subTitle">Complete Orders</p>
+                <% purchasedOrders.forEach(order=>{ %>
+                <div class="orderDetails">
+                    <div class="imageWrapper">
+                        <img class="productImage" src="<%= order.images[0].url %>" alt="<%= order.images[0].name %>">
+                    </div>
+                    <div class="detailsWrapper">
+                        <p class="productTitle">
+                            <%= order.title %>
+                        </p>
+                        <p class="productPrice">
+                            &#8377
+                            <%= order.price %>
+                        </p>
+                        <p class="orderDate">
+                            Order Date:
+                            <%= order.orderDate %>
+                        </p>
+                        <p class="orderStatus complete">
+                            Status:
+                            <%= order.status %>
+                        </p>
+                    </div>
+                </div>
+                <% }) %>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <script src="../../../../js/app.js"></script>
+    <script src="../../../../js/routes.js"></script>
+    <script src="../../../../js/controllers/homeController.js"></script>
+    <script src="../../../../js/models/homeFactory.js"></script>
+    <script src="../../../../js/controllers/productController.js"></script>
+    <script src="../../../../js/models/productFactory.js"></script>
+    <script src="../../../../js/controllers/viewProductController.js"></script>
+    <script src="../../../../js/models/viewProductFactory.js"></script>
+</body>
+
+</html>
+</body>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>OnlineShop - User Area</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../css/custom.css">
+    <script src="../../../../bower_components/angular/angular.min.js"></script>
+</head>
+
+<body ng-app="myApp" ng-controller="homeController">
+
+    <div id="container">
+        <div class="topsection">
+            <div class="topleft">
+                <span class="topbg">
+                    <div class="sitelogo">
+                        <p class="logo">OnlineShop</p>
+                        <div class="search">
+                            <input class="searchinput" type="text" placeholder="Search for products, brands and more"
+                                ng-model="searchQuery">
+                            <button class="searchicon cursor" ng-click="searchProduct(searchQuery)">Search</button>
+                        </div>
+                    </div>
+                </span>
+            </div>
+            <div class="topright">
+                <% if(session == "true"){ %>
+                <ul class="ulmenu">
+                    <li class="toprightmenus myAccount">My Account
+                        <div class="myAccountMenus">
+                            <ul>
+                                <li class="myAccountList">
+                                    <a class="myAccountListLink" ng-href="/account/profile">Profile</a>
+                                </li>
+                                <li class="myAccountList">
+                                    <a class="myAccountListLink" ng-href="/account/myorders">Orders</a>
+                                </li>
+                                <li class="myAccountList">
+                                    <a class="myAccountListLink" ng-href="/account/signout">Sign Out</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="toprightmenus cart"><a ng-href="/viewCart">My Cart</a></li>
+                </ul>
+                <% } else{ %>
+                <ul class="ulmenu">
+                    <li class="toprightmenus"> <a ng-href="/account/login">Login & Signup</a> </li>
+                    <li class="toprightmenus cart"><a ng-href="/viewCart">My Cart</a></li>
+                </ul>
+                <% } %>
+            </div>
+        </div>
+        <div id="nav">
+            <ul class="navul">
+                <li class="navmenu navmenulink" ng-repeat="menu in menusData.data" ng-mouseover="showSubMenus(menu)">{{menu.menu}}
+                </li>
+            </ul>
+            <div class="navsection">
+                <div class="submenusection">
+                    <div class="submenus">
+                        <ul class="submenuul" ng-mouseleave="hideSubMenus()">
+                            <li ng-repeat="submenu in submenus" ng-click="searchSubMenu(submenu)" ng-mouseover="showSubSubMenus(submenu)">
+                                <a class="submenu" ng-href="/show/{{MainMenu}}/{{submenu.name}}">{{submenu.name}}</a>
+                            </li>
+                            </a>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="showProducts" class="showPro" ng-controller="viewProductsByMenuController">
+            <div class="allProductsByMenu">
+                <div id="sortBy">
+                    <div class="list">
+                        <ul>
+                            <li class="sortList sortBy">Sort By</li>
+                            <li class="sortList sortListFirst">Relevance</li>
+                            <li class="sortList" ng-click="sortByPopularity()">Popularity</li>
+                            <li class="sortList" ng-click="sortByLowPrice()">Price-- Low to High</li>
+                            <li class="sortList" ng-click="sortByHighPrice()">Price-- High to Low</li>
+                            <li class="sortList" ng-click="sortByNew()">Newest First</li>
+                            <li class="sortList" ng-click="sortByDiscount()">Discount</li>
+                        </ul>
+                    </div>
+                </div>
+                <% if(products.length){ %>
+                <% products.forEach(product=>{ %>
+                <a class="productLink" ng-href="/viewProduct/<%= product.menu %>/<%= product.submenu %>/<%= product.title %>/<%= product._id %>"
+                    target="_blank">
+                    <div class="products">
+                        <div class="product imageWrapper">
+                            <div class="image">
+                                <img class="product_image" src="<%= product.images[0].url %>" alt="<%= product.images[0].name %>">
+                            </div>
+                        </div>
+                        <div class="product detailsWrapper">
+                            <span class="title">
+                                <%=  product.title %>
+                            </span>
+                            <div class="RateingReviews">
+                                <div class="rating">
+                                    <span class="productRating">
+                                        <% let rating = 0; %>
+                                        <% product.rating.forEach(rate=>{ %>
+                                        <% rating += rate.rate; %>
+                                        <% }) %>
+                                        <% let finalRating = rating / product.rating.length %>
+                                        <%= finalRating.toFixed(1) %>
+                                        ★
+                                    </span>
+                                    <span class="totalReviews">
+                                        (
+                                        <%= product.rating.length %>
+                                        )
+                                    </span>
+                                </div>
+                                <div class="total">
+                                    <% if(product.trusted){ %>
+                                    <span class="productTrust">
+                                        <span class="trust"></span>
+                                    </span>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product productPrice">
+                            <span class="currentPrice">
+                                &#8377
+                                <%= product.price %>
+                            </span>
+                            <strike class="totalPrice">
+                                &#8377
+                                <%= product.price + product.discount %>
+                            </strike>
+                            <span class="discountPrice">
+                                &#8377
+                                <%= product.discount %>
+                                off
+                            </span>
+                        </div>
+                    </div>
+                </a>
+                <% }) %>
+                <div id="Pagination">
+                    <% if(currentPage == 1 || currentPage < totalPages){ %>
+                        <span class="pagination next" ng-click="NextPage(<%= currentPage %>)">Next</span>
+                    <% } %>
+                        <span class="pagination previous" ng-click="PreviousPage(<%= currentPage %>)">Previous</span>
+                </div>
+                <% } else{ %>
+                <p>No Products Found.</p>
+                <% } %>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="../../../../js/app.js"></script>
+    <script src="../../../../js/routes.js"></script>
+    <script src="../../../../js/controllers/homeController.js"></script>
+    <script src="../../../../js/models/homeFactory.js"></script>
+    <script src="../../../../js/controllers/productController.js"></script>
+    <script src="../../../../js/models/productFactory.js"></script>
+    <script src="../../../../js/controllers/viewProductController.js"></script>
+    <script src="../../../../js/models/viewProductFactory.js"></script>
+    <script src="../../../../js/controllers/viewProductController.js"></script>
+    <script src="../../../../js/models/viewProductFactory.js"></script>
+    <script src="../../../../js/controllers/viewProductsByMenuController.js"></script>
+    <script src="../../../../js/models/viewProductsByMenuFactory.js"></script>
+
+
+</body>
+
+</html>
