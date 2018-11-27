@@ -65,6 +65,9 @@ app.controller("viewProductController", [
           if (data.data == "Product Added To Cart") {
             window.location.assign("/viewCart");
           }
+          if (data.data == "Already Added") {
+            window.location.assign("/viewCart");
+          }
         },
         err => {}
       );

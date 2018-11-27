@@ -784,6 +784,7 @@ a {
 
 #AllReviews .product {
   border: 1px solid silver;
+  border-radius: 3px;
   padding: 20px 10px;
   text-align: center;
 }
