@@ -3,18 +3,22 @@ const express = require("express");
 const TestingRouter = express.Router();
 
 const Users = require("../db/schemas/UserSchema");
+const allProducts = require("../db/schemas/allProductsSchema");
 
 TestingRouter.get("/", async (req, res, next) => {
-  console.log("Finding start..");
-  const user = await Users.find();
-  console.log(user);
-  //   Users.find()
-  //     .then(docs => {
-  //       console.log("In then block..");
-  //       res.status(200).json(docs);
-  //     })
-  //     .catch(err => {});
-  console.log("Finding end..");
+  allProducts
+    .findById("5bfb900e3772d90e0797dfaa")
+    .then(doc => {
+      console.log(doc);
+      res.json(doc);
+    })
+    .catch();
+  // try {
+  //   const user = await allProducts.find({ title: { $regex: `apple` } });
+  //   res.status(200).json(user);
+  // } catch (err) {
+  //   console.log(err);
+  // }
 });
 
 module.exports = TestingRouter;
